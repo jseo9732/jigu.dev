@@ -1,0 +1,361 @@
+/* Hero-specific styles */
+
+/* ============================================================
+   Hero 1 — Orbit (지구 theme)
+   ============================================================ */
+.h-orbit {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  min-height: 520px;
+  position: relative;
+  background:
+    radial-gradient(ellipse 80% 50% at 85% 50%, var(--accent-dim), transparent 70%),
+    var(--bg-1);
+}
+@media (max-width: 860px) {
+  .h-orbit { grid-template-columns: 1fr; }
+  .h-orbit-right { min-height: 400px; }
+}
+.h-orbit-left {
+  padding: 56px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+.h-orbit-left .kicker {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.h-orbit-left .kicker::before {
+  content: ""; width: 20px; height: 1px; background: var(--accent);
+}
+.h-orbit-left h1 {
+  font-size: clamp(36px, 4.2vw, 56px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin: 0 0 24px;
+}
+.h-orbit-left h1 .accent {
+  color: var(--accent);
+  position: relative;
+  display: inline-block;
+}
+.h-orbit-left h1 .accent::after {
+  content: "";
+  position: absolute;
+  left: -4px; right: -4px; bottom: 4px;
+  height: 8px;
+  background: var(--accent);
+  opacity: 0.15;
+  z-index: -1;
+  border-radius: 2px;
+}
+.h-orbit-left .lead {
+  font-size: 17px;
+  color: var(--fg-dim);
+  max-width: 40ch;
+  margin: 0 0 32px;
+  line-height: 1.65;
+}
+.h-orbit-left .cta-row {
+  display: flex; gap: 12px; margin-bottom: 40px;
+}
+.cta-primary, .cta-secondary {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 11px 18px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.cta-primary {
+  background: var(--accent);
+  color: #0a0a0a;
+  font-weight: 600;
+}
+.cta-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px var(--accent-glow);
+}
+.cta-secondary {
+  border-color: var(--line-strong);
+  color: var(--fg);
+  background: transparent;
+}
+.cta-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+.h-orbit-stats {
+  display: flex; gap: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+}
+.h-orbit-stats .stat .num {
+  font-size: 22px; font-weight: 600; color: var(--fg);
+  display: block;
+}
+.h-orbit-stats .stat .label {
+  font-size: 11px; color: var(--fg-dim);
+  letter-spacing: 0.05em; text-transform: uppercase;
+}
+
+.h-orbit-right {
+  position: relative;
+  overflow: hidden;
+}
+.orbit-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+}
+.orbit-ring {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1;
+  stroke-dasharray: 2 4;
+}
+.orbit-planet {
+  fill: url(#planetGrad);
+  filter: drop-shadow(0 0 24px var(--accent-glow));
+}
+.orbit-tech {
+  cursor: pointer;
+}
+.orbit-tech circle {
+  transition: all 0.2s;
+}
+.orbit-tech:hover circle {
+  r: 7;
+  fill: var(--accent);
+}
+.orbit-tech text {
+  font-family: var(--font-mono);
+  fill: var(--fg-dim);
+  transition: fill 0.2s;
+  user-select: none;
+}
+.orbit-tech:hover text {
+  fill: var(--fg);
+  font-weight: 600;
+}
+.orbit-tech.hl circle {
+  fill: var(--accent);
+  r: 7;
+}
+.orbit-tech.hl text {
+  fill: var(--fg);
+  font-weight: 600;
+}
+.orbit-detail {
+  position: absolute;
+  bottom: 24px; left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--fg-dim);
+  text-align: center;
+  background: color-mix(in srgb, var(--bg) 60%, transparent);
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.orbit-detail strong { color: var(--accent); font-weight: 600; }
+
+/* ============================================================
+   Hero 4 — Contribution heatmap
+   ============================================================ */
+.h-heat {
+  min-height: 520px;
+  padding: 48px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+.h-heat-top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 24px; flex-wrap: wrap;
+}
+.h-heat-title {
+  font-size: clamp(28px, 3.4vw, 42px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 0 0 12px;
+  max-width: 14ch;
+}
+.h-heat-sub {
+  color: var(--fg-dim); font-size: 15px; max-width: 44ch;
+  line-height: 1.6;
+}
+.h-heat-summary {
+  display: flex; gap: 28px;
+  font-family: var(--font-mono);
+  flex-shrink: 0;
+}
+.h-heat-summary .s .n {
+  display: block;
+  font-size: 28px;
+  color: var(--accent);
+  font-weight: 700;
+}
+.h-heat-summary .s .l {
+  font-size: 11px; color: var(--fg-dim);
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.heat-grid-wrap {
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+.heat-grid {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  gap: 8px;
+  min-width: 720px;
+}
+.heat-days {
+  display: grid;
+  grid-template-rows: repeat(7, 1fr);
+  gap: 3px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--fg-dim);
+  align-items: center;
+}
+.heat-days span { height: 14px; line-height: 14px; }
+.heat-cols {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 3px;
+}
+.heat-col {
+  display: grid;
+  grid-template-rows: repeat(7, 1fr);
+  gap: 3px;
+}
+.heat-cell {
+  width: 100%; height: 14px;
+  border-radius: 3px;
+  background: var(--bg-2);
+  transition: transform 0.15s, box-shadow 0.15s;
+  cursor: pointer;
+  position: relative;
+}
+.heat-cell[data-lv="1"] { background: color-mix(in srgb, var(--accent) 25%, var(--bg-2)); }
+.heat-cell[data-lv="2"] { background: color-mix(in srgb, var(--accent) 50%, var(--bg-2)); }
+.heat-cell[data-lv="3"] { background: color-mix(in srgb, var(--accent) 75%, var(--bg-2)); }
+.heat-cell[data-lv="4"] { background: var(--accent); box-shadow: 0 0 12px var(--accent-glow); }
+.heat-cell:hover {
+  transform: scale(1.4);
+  z-index: 5;
+  outline: 1px solid var(--fg);
+  outline-offset: 1px;
+}
+.heat-legend {
+  display: flex; gap: 6px; align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--fg-dim);
+  justify-content: flex-end;
+}
+.heat-legend .lg {
+  width: 12px; height: 12px; border-radius: 3px;
+  background: var(--bg-2);
+}
+.heat-legend .lg[data-lv="1"] { background: color-mix(in srgb, var(--accent) 25%, var(--bg-2)); }
+.heat-legend .lg[data-lv="2"] { background: color-mix(in srgb, var(--accent) 50%, var(--bg-2)); }
+.heat-legend .lg[data-lv="3"] { background: color-mix(in srgb, var(--accent) 75%, var(--bg-2)); }
+.heat-legend .lg[data-lv="4"] { background: var(--accent); }
+
+.h-heat-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.h-heat-stat {
+  font-family: var(--font-mono);
+}
+.h-heat-stat .big {
+  font-size: 20px; color: var(--fg); font-weight: 600;
+}
+.h-heat-stat .big .unit { font-size: 13px; color: var(--fg-dim); margin-left: 4px; }
+.h-heat-stat .sm { font-size: 11px; color: var(--fg-dim); margin-top: 2px; }
+
+/* ============================================================
+   Hero 5 — ASCII art
+   ============================================================ */
+.h-ascii {
+  min-height: 520px;
+  background: var(--bg);
+  font-family: var(--font-mono);
+  display: grid;
+  grid-template-columns: 1fr;
+  position: relative;
+  overflow: hidden;
+}
+.h-ascii-art {
+  padding: 40px 48px 0;
+  color: var(--accent);
+  font-size: 11px;
+  line-height: 1.1;
+  white-space: pre;
+  letter-spacing: 0;
+  text-shadow: 0 0 18px var(--accent-glow);
+  opacity: 0.9;
+  overflow: hidden;
+}
+.h-ascii-body {
+  padding: 24px 48px 40px;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 40px;
+  align-items: end;
+}
+@media (max-width: 720px) {
+  .h-ascii-body { grid-template-columns: 1fr; }
+  .h-ascii-art { font-size: 8px; padding: 24px 24px 0; }
+  .h-ascii-body { padding: 24px; }
+}
+.h-ascii-text h2 {
+  font-size: clamp(30px, 3.4vw, 44px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin: 0 0 16px;
+  font-family: var(--font-sans);
+}
+.h-ascii-text h2 .g { color: var(--accent); }
+.h-ascii-text p {
+  color: var(--fg-dim);
+  line-height: 1.6;
+  max-width: 40ch;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 15px;
+}
+.h-ascii-info {
+  font-size: 12px;
+  color: var(--fg-dim);
+  line-height: 1.9;
+}
+.h-ascii-info .row {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 12px;
+}
+.h-ascii-info .row .k { color: var(--fg-dimmer); }
+.h-ascii-info .row .v { color: var(--fg); }
+.h-ascii-info .row .v .ac { color: var(--accent); }

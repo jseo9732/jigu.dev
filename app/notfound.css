@@ -1,0 +1,255 @@
+/* 404 page — lost in space */
+
+.nf {
+  min-height: calc(100vh - 64px);
+  display: grid;
+  grid-template-rows: 1fr auto;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+/* starfield */
+.nf-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.nf-star {
+  position: absolute;
+  width: 2px; height: 2px;
+  background: var(--fg);
+  border-radius: 50%;
+  opacity: 0.4;
+  animation: nf-twinkle 3s ease-in-out infinite;
+}
+@keyframes nf-twinkle {
+  0%, 100% { opacity: 0.15; }
+  50%      { opacity: 0.7; }
+}
+.nf-shooting {
+  position: absolute;
+  width: 80px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent));
+  animation: nf-shoot 6s linear infinite;
+  opacity: 0;
+}
+@keyframes nf-shoot {
+  0%   { transform: translate(0, 0); opacity: 0; }
+  3%   { opacity: 0.8; }
+  20%  { transform: translate(-300px, 200px); opacity: 0; }
+  100% { transform: translate(-300px, 200px); opacity: 0; }
+}
+
+.nf-main {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 60px;
+  padding: 80px 32px;
+  max-width: 1180px;
+  margin: 0 auto;
+  width: 100%;
+}
+@media (max-width: 860px) {
+  .nf-main { grid-template-columns: 1fr; padding: 48px 24px; gap: 32px; }
+  .nf-stage { order: -1; min-height: 320px; }
+}
+
+/* left content */
+.nf-content { font-family: var(--font-sans); }
+.nf-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  padding: 6px 12px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  background: var(--accent-dim);
+}
+.nf-tag .blip {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: nf-blip 1.5s ease-out infinite;
+}
+@keyframes nf-blip {
+  0%   { box-shadow: 0 0 0 0 var(--accent); opacity: 1; }
+  100% { box-shadow: 0 0 0 8px transparent; opacity: 0.3; }
+}
+
+.nf-code {
+  font-family: var(--font-mono);
+  font-size: clamp(72px, 12vw, 140px);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  margin: 0 0 20px;
+  background: linear-gradient(180deg, var(--fg) 0%, var(--fg-dim) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  position: relative;
+  display: inline-block;
+}
+.nf-code .glitch {
+  color: var(--accent);
+  -webkit-text-fill-color: var(--accent);
+  display: inline-block;
+  animation: nf-glitch 4s infinite;
+}
+@keyframes nf-glitch {
+  0%, 92%, 100% { transform: translate(0); }
+  93%           { transform: translate(-3px, 1px); }
+  94%           { transform: translate(2px, -1px); }
+  95%           { transform: translate(-1px, 2px); }
+  96%           { transform: translate(0); }
+}
+
+.nf-title {
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0 0 14px;
+  text-wrap: balance;
+}
+.nf-lead {
+  color: var(--fg-dim);
+  font-size: 16px;
+  line-height: 1.65;
+  max-width: 44ch;
+  margin: 0 0 28px;
+}
+
+.nf-coords {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--fg-dim);
+  background: var(--bg-1);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 28px;
+  max-width: 420px;
+}
+.nf-coords-row {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 12px;
+  padding: 4px 0;
+}
+.nf-coords-row .k { color: var(--fg-dimmer); }
+.nf-coords-row .v { color: var(--fg); }
+.nf-coords-row .v.err { color: var(--accent); }
+.nf-coords-row .v .cursor {
+  display: inline-block; width: 7px; height: 13px;
+  background: var(--accent);
+  vertical-align: -2px; margin-left: 2px;
+  animation: blink 1s steps(1) infinite;
+}
+
+.nf-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* right stage — drifting astronaut planet */
+.nf-stage {
+  position: relative;
+  min-height: 460px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nf-stage svg {
+  width: 100%;
+  height: 100%;
+  max-width: 480px;
+  max-height: 480px;
+}
+.nf-orbit-dashed {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 0.3;
+  stroke-dasharray: 1 2;
+}
+.nf-planet-body {
+  fill: url(#nfPlanetGrad);
+  filter: drop-shadow(0 0 12px var(--accent-glow));
+}
+.nf-planet-ring {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 0.4;
+  opacity: 0.5;
+}
+.nf-satellite {
+  fill: var(--accent);
+  filter: drop-shadow(0 0 6px var(--accent));
+}
+.nf-trail {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 0.3;
+  stroke-dasharray: 1 2;
+  opacity: 0.5;
+}
+.nf-label-line {
+  stroke: var(--fg-dimmer);
+  stroke-width: 0.3;
+  stroke-dasharray: 1 1.5;
+}
+.nf-label {
+  font-family: var(--font-mono);
+  fill: var(--fg-dim);
+  font-size: 3.2px;
+}
+.nf-label.ac { fill: var(--accent); font-weight: 600; }
+.nf-grid-bg line {
+  stroke: var(--line);
+  stroke-width: 0.2;
+}
+
+.nf-pulse {
+  animation: nf-pulse 3s ease-in-out infinite;
+  transform-origin: center;
+}
+@keyframes nf-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50%      { opacity: 0.8; transform: scale(1.04); }
+}
+
+/* footer breadcrumb */
+.nf-foot {
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--fg-dim);
+  padding: 18px 32px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  max-width: 1180px;
+  margin: 0 auto;
+  width: 100%;
+}
+.nf-foot .crumbs span { color: var(--fg-dimmer); margin: 0 8px; }
+.nf-foot .crumbs a:hover { color: var(--accent); }
+.nf-foot .signal {
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.nf-foot .signal .bar {
+  display: inline-block;
+  width: 3px;
+  background: var(--fg-dimmer);
+  border-radius: 1px;
+  margin-right: 1px;
+}
+.nf-foot .signal .bar.lit { background: var(--accent); }
