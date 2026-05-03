@@ -126,7 +126,7 @@
     0 0 60px var(--accent-glow);
 }
 .about-avatar-planet::before {
-  content: "지수";
+  content: "지구";
   position: absolute;
   inset: 0;
   display: flex; align-items: center; justify-content: center;
