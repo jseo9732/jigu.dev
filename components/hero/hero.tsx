@@ -15,9 +15,10 @@ type HeroVariant = (typeof HERO_OPTIONS)[number]["id"];
 
 interface HeroProps {
   postCount: number;
+  contributions: number[][] | null;
 }
 
-export function Hero({ postCount }: HeroProps) {
+export function Hero({ postCount, contributions }: HeroProps) {
   const [variant, setVariant] = useState<HeroVariant>("orbit");
 
   return (
@@ -59,7 +60,7 @@ export function Hero({ postCount }: HeroProps) {
           }}
         >
           {variant === "orbit" && <HeroOrbit postCount={postCount} />}
-          {variant === "heatmap" && <HeroHeatmap postCount={postCount} />}
+          {variant === "heatmap" && <HeroHeatmap postCount={postCount} contributions={contributions ?? undefined} />}
           {variant === "ascii" && <HeroAscii />}
         </div>
       </div>
