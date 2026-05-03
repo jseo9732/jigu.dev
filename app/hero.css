@@ -134,7 +134,7 @@
   transition: fill 0.2s, r 0.2s;
 }
 .orbit-tech:hover circle {
-  r: 7;
+  r: 2.8;
   fill: var(--accent);
 }
 .orbit-tech text {
@@ -149,7 +149,7 @@
 }
 .orbit-tech.hl circle {
   fill: var(--accent);
-  r: 7;
+  r: 2.8;
 }
 .orbit-tech.hl text {
   fill: var(--fg);
