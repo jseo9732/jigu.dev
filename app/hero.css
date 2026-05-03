@@ -192,7 +192,6 @@
   letter-spacing: -0.02em;
   line-height: 1.15;
   margin: 0 0 12px;
-  max-width: 14ch;
 }
 .h-heat-sub {
   color: var(--fg-dim); font-size: 15px; max-width: 44ch;
