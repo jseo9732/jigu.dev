@@ -1,37 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
-
-const CAREER = [
-  {
-    period: "2024.07 — 현재",
-    current: true,
-    role: "Frontend Engineer",
-    org: "Drift",
-    orgType: "B2B SaaS · 시리즈 B",
-    desc: "디자인 시스템과 에디터를 만듭니다. RSC 기반 App Router로 마이그레이션을 주도했고, 초기 로드 시간을 38% 줄였습니다. 사내 컴포넌트 라이브러리 v2를 설계해서 6개 프로덕트가 같은 토큰을 공유하도록 만들었어요.",
-    tags: ["Next.js", "TypeScript", "Tailwind", "디자인 시스템"],
-  },
-  {
-    period: "2022.03 — 2024.06",
-    current: false,
-    role: "Frontend Engineer",
-    org: "Pebble",
-    orgType: "커머스 스타트업",
-    desc: "0 → 1 시기에 합류해서 웹 프론트엔드를 처음부터 깔았습니다. SSR 도입, 결제 플로우 리팩토링, 접근성 감사. 3명 팀에서 9명 팀으로 자라는 시기를 함께 했어요.",
-    tags: ["React", "Vite", "tRPC", "접근성"],
-  },
-  {
-    period: "2021.04 — 2022.02",
-    current: false,
-    role: "Software Engineer Intern",
-    org: "Naver",
-    orgType: "포털 · 웹툰 플랫폼팀",
-    desc: "내부 어드민 툴 개발. 첫 프로덕션 코드를 작성한 곳. 코드리뷰 문화를 처음 배웠습니다.",
-    tags: ["React", "Recoil"],
-  },
-];
+import { useEffect, useRef, useState } from "react";
+import { CAREER, getCareerKorean, getCareerDecimal } from "@/lib/career";
 
 const STACK_GROUPS = [
   {
@@ -39,9 +9,9 @@ const STACK_GROUPS = [
     title: "Languages",
     sub: "type-safe by default",
     skills: [
-      { name: "TypeScript", pct: 92 },
-      { name: "JavaScript", pct: 95 },
-      { name: "Python (basics)", pct: 55 },
+      { name: "TypeScript", pct: 90 },
+      { name: "JavaScript", pct: 92 },
+      { name: "Python", pct: 70 },
     ],
   },
   {
@@ -49,29 +19,29 @@ const STACK_GROUPS = [
     title: "Frameworks",
     sub: "the tools I reach for",
     skills: [
-      { name: "React", pct: 94 },
-      { name: "Next.js", pct: 88 },
-      { name: "Tailwind CSS", pct: 82 },
+      { name: "React / Next.js", pct: 90 },
+      { name: "React Native", pct: 72 },
+      { name: "Tailwind CSS", pct: 85 },
     ],
   },
   {
     icon: "◇",
-    title: "Tooling",
-    sub: "build, test, ship",
+    title: "State & Data",
+    sub: "server state first",
     skills: [
-      { name: "Vite + pnpm", pct: 85 },
-      { name: "Vitest / Playwright", pct: 75 },
-      { name: "Git & CI/CD", pct: 88 },
+      { name: "TanStack Query", pct: 82 },
+      { name: "Zustand", pct: 80 },
+      { name: "React Hook Form", pct: 78 },
     ],
   },
   {
     icon: "○",
-    title: "Adjacent",
-    sub: "growing into",
+    title: "Tooling",
+    sub: "build, ship, observe",
     skills: [
-      { name: "Node.js / tRPC", pct: 72 },
-      { name: "Postgres", pct: 60 },
-      { name: "Figma", pct: 78 },
+      { name: "Git / GitHub", pct: 88 },
+      { name: "Vercel / AWS", pct: 80 },
+      { name: "Claude Code / MCP", pct: 85 },
     ],
   },
 ];
@@ -79,39 +49,37 @@ const STACK_GROUPS = [
 const VALUES = [
   {
     n: "01",
+    title: "추측이 아닌 실측으로 성능을 개선한다",
+    desc: "Chrome DevTools, Lighthouse 등 실측 데이터를 근거로 병목을 진단합니다. 느낌이 아니라 수치로 이야기해요.",
+  },
+  {
+    n: "02",
     title: "잘 읽히는 코드는 잘 읽히는 글과 닮았다",
     desc: "함수의 단락이 명확하면 PR 리뷰가 쉬워지고, 변수 이름이 정확하면 디버깅이 빨라져요. 이 둘은 결국 같은 일입니다.",
   },
   {
-    n: "02",
-    title: "느슨한 결합, 단단한 경계",
-    desc: "모듈 사이를 가능한 한 느슨하게, 그러나 경계는 분명하게 둡니다. 컴포넌트도, 팀도 마찬가지예요.",
-  },
-  {
     n: "03",
-    title: "사용자가 1초도 기다리지 않게",
-    desc: "성능은 기능입니다. CLS, LCP, INP를 매주 들여다봅니다.",
+    title: "도구를 설계하는 것도 개발이다",
+    desc: "AI 코딩 도구 도입, CLAUDE.md 설계, 슬래시 명령어 표준화까지 — 팀이 더 잘 일하도록 환경을 만드는 걸 좋아합니다.",
   },
   {
     n: "04",
-    title: "키보드만 써도 끝까지 가는 UI",
-    desc: "접근성은 누군가에겐 필수, 누구에게나 더 좋은 UX. 포커스 링을 끄지 않습니다.",
+    title: "사용자가 1초도 기다리지 않게",
+    desc: "성능은 기능입니다. 렌더링 병목, 번들 크기, 서버 상태 캐싱을 늘 신경 씁니다.",
   },
 ];
 
 const CONTACT = [
-  { label: "Email",    value: "jisu@jigu.dev",        icon: "@",  href: "mailto:jisu@jigu.dev" },
-  { label: "GitHub",   value: "github.com/jisu",      icon: "G",  href: "https://github.com/jisu" },
-  { label: "LinkedIn", value: "linkedin.com/in/jisu",  icon: "in", href: "https://linkedin.com/in/jisu" },
-  { label: "Twitter",  value: "@jigu_dev",             icon: "𝕏",  href: "https://twitter.com/jigu_dev" },
+  { label: "Email",    value: "jseo9732@gmail.com",        icon: "@",  href: "mailto:jseo9732@gmail.com" },
+  { label: "GitHub",   value: "github.com/jseo9732",       icon: "G",  href: "https://github.com/jseo9732" },
+  { label: "LinkedIn", value: "linkedin.com/in/jseo9732",  icon: "in", href: "https://www.linkedin.com/in/jseo9732" },
 ];
 
 const CURRENT = [
-  { k: "직무",       v: <span>Frontend Engineer @ <span className="ac">Drift</span></span> },
+  { k: "직무",       v: <span>Frontend Developer @ <span className="ac">밤빗 (Seroc)</span></span> },
   { k: "위치",       v: "서울, 대한민국" },
   { k: "타임존",     v: "KST (UTC+9)" },
-  { k: "현재 관심사", v: "RSC, Streaming UI, 디자인 토큰 시스템" },
-  { k: "읽는 책",    v: "Refactoring (2nd ed.) · Martin Fowler" },
+  { k: "현재 관심사", v: "성능 최적화, AI 개발 환경, React Native" },
   { k: "상태",       v: <span><span className="ac">●</span> 사이드 프로젝트·대화 환영</span> },
 ];
 
@@ -142,20 +110,20 @@ export function AboutClient() {
         <div className="about-hero-grid" />
         <div className="wrap about-hero-inner">
           <div>
-            <span className="about-kicker">about · 지수 (jigu)</span>
+            <span className="about-kicker">about · 지구 (jigu)</span>
             <h1 className="about-name">
               안녕하세요,<br />
               <span className="accent">지구</span>입니다.
             </h1>
             <p className="about-tag">
-              4년차 프론트엔드 엔지니어. 잘 읽히는 코드와 잘 읽히는 글을 좋아하고, 작은 커밋을 매일 쌓는 일에 마음을 둡니다.
+              성능을 실측하고, AI 도구로 개발 환경을 자동화하는 프론트엔드 개발자입니다. 작은 커밋을 매일 쌓는 일에 마음을 둡니다.
             </p>
             <div className="about-quick-meta">
               <span className="pill live"><span className="dot" />open to chat</span>
               <span className="pill">Seoul, KR</span>
               <span className="pill">KST (UTC+9)</span>
-              <span className="pill">4 years</span>
-              <span className="pill">@ Drift</span>
+              <span className="pill">{getCareerKorean()}</span>
+              <span className="pill">@ 밤빗</span>
             </div>
           </div>
           <div className="about-avatar">
@@ -170,24 +138,24 @@ export function AboutClient() {
       {/* numbers strip */}
       <section className="about-numbers">
         <div className="about-number">
-          <span className="n">4<span className="unit">년차</span></span>
+          <span className="n">{getCareerDecimal()}<span className="unit">년</span></span>
           <div className="l">Experience</div>
-          <div className="sub">since 2022</div>
+          <div className="sub">since 2024</div>
         </div>
         <div className="about-number">
-          <span className="n">96<span className="unit">+</span></span>
-          <div className="l">Posts</div>
-          <div className="sub">all-time</div>
+          <span className="n">62<span className="unit">x</span></span>
+          <div className="l">렌더 속도 단축</div>
+          <div className="sub">4,500ms → 72ms</div>
         </div>
         <div className="about-number">
-          <span className="n">784</span>
-          <div className="l">Contributions</div>
-          <div className="sub">last 12 months</div>
+          <span className="n">96<span className="unit">%</span></span>
+          <div className="l">업로드 속도 향상</div>
+          <div className="sub">S3 Presigned URL</div>
         </div>
         <div className="about-number">
-          <span className="n">12<span className="unit">k</span></span>
-          <div className="l">Reads / month</div>
-          <div className="sub">avg. 2026 Q1</div>
+          <span className="n">80<span className="unit">%</span></span>
+          <div className="l">중복 코드 감소</div>
+          <div className="sub">컴포넌트 추상화</div>
         </div>
       </section>
 
@@ -196,16 +164,16 @@ export function AboutClient() {
         <div className="wrap">
           <div className="about-section-label">소개</div>
           <h2 className="about-section-title">
-            기술의 <span className="accent">표면</span>이 아니라<br />
-            <span className="accent">경계</span>를 다듬는 일을 좋아합니다.
+            추측이 아닌 <span className="accent">실측</span>으로,<br />
+            환경을 <span className="accent">설계</span>하는 개발자.
           </h2>
           <div className="bio-grid">
             <div className="bio-prose">
               <p>
-                대학에서 <strong>인지과학</strong>을 공부하다가, 사람들이 화면을 어떻게 읽는지가 궁금해서 프론트엔드로 넘어왔습니다. 처음 작성한 프로덕션 코드는 한 줄이 100자가 넘는 jQuery였어요. 그때부터 <span className="accent">잘 읽히는 코드</span>가 무엇인지를 줄곧 생각하고 있습니다.
+                대학교에서 <strong>경영정보학</strong>을 공부하며 IT와 서비스 사이의 경계에 관심을 가졌습니다. 졸업 후 프론트엔드 개발자로 커리어를 시작했어요.
               </p>
               <p>
-                지금은 디자인 시스템과 에디터를 만듭니다. 컴포넌트가 어떻게 조합되는지, 토큰이 어디까지 닿아야 하는지, 그리고 그 경계를 어떻게 글로 설명할지 같은 문제들을 좋아해요.
+                지금은 <span className="accent">실측 데이터</span>로 성능 병목을 잡고, <span className="accent">AI 개발 인프라</span>로 팀 전체의 개발 속도를 높이는 일을 합니다. Chrome DevTools로 렌더링 병목을 진단하고, Claude Code로 팀 공용 개발 환경을 자동화했어요.
               </p>
               <p>
                 글을 쓰는 이유는 단순합니다. <strong>이해한 만큼만 쓸 수 있고, 쓰지 않으면 잊어버리니까요.</strong>
@@ -213,7 +181,7 @@ export function AboutClient() {
             </div>
             <blockquote className="bio-quote">
               작은 커밋으로 지구를 조금씩 움직이는 사람.
-              <span className="bio-quote-author">— 사수가 송별회 때 해준 말</span>
+              <span className="bio-quote-author">— 첫 직장 사수가 퇴사할 때 해준 말</span>
             </blockquote>
           </div>
         </div>
@@ -314,7 +282,7 @@ export function AboutClient() {
           <div className="contact-grid">
             <div>
               <p className="contact-lead">
-                <strong>대화는 언제든 환영합니다.</strong> 디자인 시스템, 프론트엔드 아키텍처, 글쓰기, 등산. 답장은 평일 기준 보통 24시간 안에 드려요.
+                <strong>대화는 언제든 환영합니다.</strong> 성능 최적화, 프론트엔드 아키텍처, AI 개발 환경, 글쓰기. 답장은 평일 기준 보통 24시간 안에 드려요.
               </p>
               <div className="now-card" style={{ marginTop: 24 }}>
                 <div className="about-section-label" style={{ margin: 0, marginBottom: 18 }}>Now</div>
