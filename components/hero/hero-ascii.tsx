@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { siteConfig } from "@/lib/site-config";
+import { getCareerDecimal } from "@/lib/career";
 
 const ASCII_ART = ` ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
           ▄▄▄▄
@@ -48,7 +49,7 @@ export function HeroAscii() {
           </div>
           <div className="row">
             <span className="k">$ years</span>
-            <span className="v">{siteConfig.years}y</span>
+            <span className="v">{getCareerDecimal()}y</span>
           </div>
           <div className="row">
             <span className="k">$ stack</span>

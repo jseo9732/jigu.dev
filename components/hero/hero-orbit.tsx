@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { siteConfig, stackConfig } from "@/lib/site-config";
+import { getCareerYears } from "@/lib/career";
 
 const ORBIT_RADII: Record<number, number> = { 1: 14, 2: 22, 3: 30, 4: 38 };
 const SPEEDS: Record<number, number> = { 1: 1.0, 2: 0.6, 3: 0.4, 4: 0.25 };
@@ -61,7 +62,7 @@ export function HeroOrbit({ postCount }: HeroOrbitProps) {
         </div>
         <div className="h-orbit-stats">
           <div className="stat">
-            <span className="num">{siteConfig.years}년차</span>
+            <span className="num">{getCareerYears()}년차</span>
             <span className="label">경력</span>
           </div>
           <div className="stat">
