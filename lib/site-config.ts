@@ -16,18 +16,18 @@ export const siteConfig = {
 } as const;
 
 export const stackConfig = [
-  { name: "TypeScript", level: 92, group: "lang",   orbit: 1, angle: 15 },
-  { name: "JavaScript", level: 95, group: "lang",   orbit: 1, angle: 140 },
-  { name: "React",      level: 94, group: "ui",     orbit: 2, angle: 40 },
-  { name: "Next.js",    level: 88, group: "ui",     orbit: 2, angle: 200 },
-  { name: "Tailwind",   level: 82, group: "ui",     orbit: 2, angle: 300 },
-  { name: "Node.js",    level: 78, group: "server", orbit: 3, angle: 60 },
-  { name: "tRPC",       level: 70, group: "server", orbit: 3, angle: 170 },
-  { name: "Postgres",   level: 65, group: "data",   orbit: 3, angle: 280 },
-  { name: "Vite",       level: 85, group: "tool",   orbit: 4, angle: 20 },
-  { name: "Vitest",     level: 75, group: "tool",   orbit: 4, angle: 110 },
-  { name: "Figma",      level: 72, group: "tool",   orbit: 4, angle: 220 },
-  { name: "Git",        level: 90, group: "tool",   orbit: 4, angle: 320 },
+  { name: "TypeScript",    level: 90, group: "lang",  orbit: 1, angle: 15 },
+  { name: "JavaScript",   level: 92, group: "lang",  orbit: 1, angle: 140 },
+  { name: "React",        level: 92, group: "ui",    orbit: 2, angle: 40 },
+  { name: "Next.js",      level: 88, group: "ui",    orbit: 2, angle: 160 },
+  { name: "Tailwind",     level: 85, group: "ui",    orbit: 2, angle: 280 },
+  { name: "React Native", level: 72, group: "ui",    orbit: 3, angle: 60 },
+  { name: "TanStack Query",   level: 82, group: "state", orbit: 3, angle: 180 },
+  { name: "Zustand",      level: 80, group: "state", orbit: 3, angle: 300 },
+  { name: "Git",          level: 88, group: "tool",  orbit: 4, angle: 20 },
+  { name: "Vercel",       level: 90, group: "tool",  orbit: 4, angle: 110 },
+  { name: "Claude Code",  level: 85, group: "tool",  orbit: 4, angle: 220 },
+  { name: "Python",       level: 70, group: "lang",  orbit: 4, angle: 320 },
 ] as const;
 
 export type StackItem = typeof stackConfig[number];
