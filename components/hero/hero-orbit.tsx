@@ -1,13 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { siteConfig, stackConfig } from "@/lib/site-config";
 import { getCareerYears } from "@/lib/career";
 
 const ORBIT_RADII: Record<number, number> = { 1: 14, 2: 22, 3: 30, 4: 38 };
 const SPEEDS: Record<number, number> = { 1: 1.0, 2: 0.6, 3: 0.4, 4: 0.25 };
 const CX = 50, CY = 50;
+
+/** 소수점 4자리로 반올림 — 서버/클라이언트 float 직렬화 불일치 방지 */
+const r4 = (n: number) => Math.round(n * 10000) / 10000;
 
 interface HeroOrbitProps {
   postCount: number;
@@ -31,7 +33,7 @@ export function HeroOrbit({ postCount }: HeroOrbitProps) {
   const items = stackConfig.map((s, i) => {
     const r = ORBIT_RADII[s.orbit];
     const a = ((s.angle + angleOffset * SPEEDS[s.orbit]) * Math.PI) / 180;
-    return { ...s, i, x: CX + r * Math.cos(a), y: CY + r * Math.sin(a) };
+    return { ...s, i, x: r4(CX + r * Math.cos(a)), y: r4(CY + r * Math.sin(a)) };
   });
 
   const active = hovered != null ? items[hovered] : null;
