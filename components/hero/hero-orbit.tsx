@@ -48,9 +48,9 @@ export function HeroOrbit({ postCount }: HeroOrbitProps) {
           {siteConfig.bio} 이 블로그에는 배운 것, 실수한 것, 다시 배운 것이 시간 순서대로 쌓입니다.
         </p>
         <div className="cta-row">
-          <Link className="cta-primary" href="/posts">
+          <a className="cta-primary" href="#posts">
             글 읽으러 가기 <span>↓</span>
-          </Link>
+          </a>
           <a
             className="cta-secondary"
             href={`https://github.com/${siteConfig.github}`}

@@ -55,6 +55,7 @@
 /* ─── Base ─── */
 html {
   color-scheme: dark;
+  scroll-behavior: smooth;
 }
 
 [data-theme="light"] {
