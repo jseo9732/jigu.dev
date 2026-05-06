@@ -50,15 +50,7 @@ export function Hero({ postCount, contributions }: HeroProps) {
           </div>
         </div>
 
-        <div
-          className="hero-stage"
-          style={{
-            borderRadius: "20px",
-            border: "1px solid var(--line)",
-            overflow: "hidden",
-            minHeight: "520px",
-          }}
-        >
+        <div className="hero-stage">
           {variant === "orbit" && <HeroOrbit postCount={postCount} />}
           {variant === "heatmap" && <HeroHeatmap postCount={postCount} contributions={contributions ?? undefined} />}
           {variant === "ascii" && <HeroAscii />}

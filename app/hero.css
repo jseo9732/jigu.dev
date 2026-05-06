@@ -1,6 +1,80 @@
 /* Hero-specific styles */
 
 /* ============================================================
+   Hero wrapper
+   ============================================================ */
+.hero {
+  padding: 48px 0 72px;
+  position: relative;
+}
+.hero-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.hero-meta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--fg-dim);
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.hero-meta .live-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-dim);
+  animation: pulse 1.6s infinite;
+  margin-right: 6px;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--accent-dim); }
+  50%       { box-shadow: 0 0 0 6px transparent; }
+}
+.hero-switcher {
+  display: flex;
+  gap: 6px;
+  padding: 4px;
+  background: var(--bg-1);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+}
+.hero-switcher button {
+  padding: 6px 10px;
+  border: none;
+  background: transparent;
+  color: var(--fg-dim);
+  border-radius: 6px;
+  transition: color 0.2s, background 0.2s;
+  cursor: pointer;
+}
+.hero-switcher button:hover { color: var(--fg); }
+.hero-switcher button.active {
+  background: var(--accent);
+  color: #0a0a0a;
+  font-weight: 600;
+}
+.hero-stage {
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--bg-1);
+  overflow: hidden;
+  position: relative;
+  min-height: 520px;
+  transition: border-color 0.3s;
+}
+.hero-stage:hover { border-color: var(--line-strong); }
+
+/* ============================================================
    Hero 1 — Orbit (지구 theme)
    ============================================================ */
 .h-orbit {
