@@ -3,12 +3,10 @@
 import { useState } from "react";
 import { HeroOrbit } from "./hero-orbit";
 import { HeroHeatmap } from "./hero-heatmap";
-import { HeroAscii } from "./hero-ascii";
 
 const HERO_OPTIONS = [
   { id: "orbit", label: "궤도" },
   { id: "heatmap", label: "히트맵" },
-  { id: "ascii", label: "ASCII" },
 ] as const;
 
 type HeroVariant = (typeof HERO_OPTIONS)[number]["id"];
@@ -53,7 +51,6 @@ export function Hero({ postCount, contributions }: HeroProps) {
         <div className="hero-stage">
           {variant === "orbit" && <HeroOrbit postCount={postCount} />}
           {variant === "heatmap" && <HeroHeatmap postCount={postCount} contributions={contributions ?? undefined} />}
-          {variant === "ascii" && <HeroAscii />}
         </div>
       </div>
     </section>
