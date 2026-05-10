@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { CAREER, getCareerKorean, getCareerDecimal } from "@/lib/career";
+import { CAREER, getCareerYears } from "@/lib/career";
 
 const STACK_GROUPS = [
   {
@@ -122,7 +122,7 @@ export function AboutClient() {
               <span className="pill live"><span className="dot" />open to chat</span>
               <span className="pill">Seoul, KR</span>
               <span className="pill">KST (UTC+9)</span>
-              <span className="pill">{getCareerKorean()}</span>
+              <span className="pill">{getCareerYears()}년차</span>
               <span className="pill">@ 밤빗</span>
             </div>
           </div>
@@ -138,7 +138,7 @@ export function AboutClient() {
       {/* numbers strip */}
       <section className="about-numbers">
         <div className="about-number">
-          <span className="n">{getCareerDecimal()}<span className="unit">년</span></span>
+          <span className="n">{getCareerYears()}<span className="unit">년차</span></span>
           <div className="l">Experience</div>
           <div className="sub">since 2024</div>
         </div>

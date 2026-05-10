@@ -46,22 +46,7 @@ function getTotalCareerMonths(): number {
   }, 0);
 }
 
-/** 년차 표기용 (내림) — 예: 18개월 → 1 */
+/** 년차 표기용 (올림) — 예: 13개월 → 2, 25개월 → 3 */
 export function getCareerYears(): number {
-  return Math.floor(getTotalCareerMonths() / 12);
-}
-
-/** 소수점 표기용 — 예: 18개월 → 1.5 */
-export function getCareerDecimal(): number {
-  return Math.round((getTotalCareerMonths() / 12) * 10) / 10;
-}
-
-/** 한국어 표기용 — 예: 18개월 → "1년 6개월" */
-export function getCareerKorean(): string {
-  const total = getTotalCareerMonths();
-  const y = Math.floor(total / 12);
-  const m = total % 12;
-  if (m === 0) return `${y}년`;
-  if (y === 0) return `${m}개월`;
-  return `${y}년 ${m}개월`;
+  return Math.ceil(getTotalCareerMonths() / 12);
 }
