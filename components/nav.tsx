@@ -24,7 +24,7 @@ export function Nav() {
             <Link
               key={href}
               href={href}
-              className={`nav-link ${pathname.startsWith(href) ? "active" : ""}`}
+              className={`nav-link ${(href === "/" ? pathname === "/" : pathname.startsWith(href)) ? "active" : ""}`}
             >
               {label}
             </Link>
